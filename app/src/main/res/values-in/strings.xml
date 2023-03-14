@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Pengaturan</string>
+    <string name="photos_label">@string/app_name</string>
+    <string name="favorite_label">Favorit</string>
+    <string name="fab_favorite_description">Tombol Favorit</string>
+    <string name="filter_latest">Terbaru</string>
+    <string name="filter_popular">Populer</string>
+    <string name="filter_oldest">Terlawas</string>
+    <string name="action_filter">Filter Foto</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="detail_label">Detail</string>
+    <string name="title_favorite">Favorit</string>
+    <string name="menu_icon_description">Icon menu</string>
+    <string name="search_hint">Cari foto…</string>
+    <string name="search_label">Cari</string>
+
+    <string-array name="menu_title">
+        <item>Bahasa</item>
+        <item>Tema</item>
+    </string-array>
+
+    <!-- TODO: Theme -->
+    <string-array name="my_themes_1">
+        <item>Sistem Default</item>
+        <item>Terang</item>
+        <item>Gelap</item>
+    </string-array>
+
+    <string-array name="my_themes_2">
+        <item>Hemat Daya</item>
+        <item>Terang</item>
+        <item>Gelap</item>
+    </string-array>
+</resources>

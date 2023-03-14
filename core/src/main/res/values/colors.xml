@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="btn_tint_color_white">#C1FFFFFF</color>
+    <color name="btn_tint_color_red">#C1F44336</color>
+</resources>
