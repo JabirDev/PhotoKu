@@ -19,15 +19,16 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
 
-    private lateinit var binding: FragmentSearchBinding
+    private var _binding: FragmentSearchBinding? = null
+    private val binding get() = _binding
     private val searchViewModel: SearchViewModel by viewModels()
     private val unsplashAdapter = UnsplashAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+                              savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        binding = FragmentSearchBinding.inflate(inflater, container, false)
-        return binding.root
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,7 +44,7 @@ class SearchFragment : Fragment() {
         }
 
         val staggeredLayoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
-        binding.rvSearch.apply {
+        binding?.rvSearch?.apply {
             setHasFixedSize(true)
             layoutManager = staggeredLayoutManager
             adapter = unsplashAdapter.withLoadStateFooter(
@@ -58,10 +59,25 @@ class SearchFragment : Fragment() {
             unsplashAdapter.submitData(lifecycle, it)
         }
 
-        binding.inputQuery.editText?.addTextChangedListener {
+        binding?.inputQuery?.editText?.addTextChangedListener {
             searchViewModel.search(it.toString())
         }
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        binding?.rvSearch?.adapter = unsplashAdapter
+    }
+
+    override fun onStop() {
+        super.onStop()
+        binding?.rvSearch?.adapter = null
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

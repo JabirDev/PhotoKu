@@ -16,23 +16,23 @@ import dagger.hilt.android.AndroidEntryPoint
 class SettingFragment : Fragment() {
 
     private var _binding: FragmentSettingBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
     private val settingViewModel: SettingViewModel by viewModels()
     private val settingAdapter = SettingAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvSetting.apply {
+        binding?.rvSetting?.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = settingAdapter
         }

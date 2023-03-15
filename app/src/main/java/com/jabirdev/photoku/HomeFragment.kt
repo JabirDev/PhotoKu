@@ -19,26 +19,23 @@ import com.jabirdev.photoku.vm.MainViewModel
 import com.jabirdev.photoku.vm.OrderBy
 import dagger.hilt.android.AndroidEntryPoint
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
-
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private lateinit var binding: FragmentHomeBinding
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding
     
     private var mainActivity: MainActivity? = null
 
     private val mainViewModel: MainViewModel by viewModels()
-    private val unsplashAdapter = UnsplashAdapter()
+    private val unsplashAdapter: UnsplashAdapter = UnsplashAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
+    ): View? {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding?.root
 
     }
 
@@ -55,7 +52,7 @@ class HomeFragment : Fragment() {
             mainViewModel.setFavorite(photo, isFavorite)
         }
         val staggeredLayoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
-        binding.rvImage.apply {
+        binding?.rvImage?.apply {
             setHasFixedSize(true)
             layoutManager = staggeredLayoutManager
             adapter = unsplashAdapter.withLoadStateFooter(
@@ -93,7 +90,18 @@ class HomeFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        binding?.rvImage?.adapter = unsplashAdapter
         mainViewModel.loadPhotos(OrderBy.LATEST)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        binding?.rvImage?.adapter = null
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

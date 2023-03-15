@@ -22,18 +22,19 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityMainBinding
+    private var _binding: ActivityMainBinding? = null
+    private val binding get() = _binding
     private lateinit var navController: NavController
-    val btnOrder: MaterialButton get() = binding.btnOrder
+    val btnOrder: MaterialButton? get() = binding?.btnOrder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
 
-        setSupportActionBar(binding.toolbar)
+        setSupportActionBar(binding?.toolbar)
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
@@ -42,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.btnOrder.apply {
+            binding?.btnOrder?.apply {
                 visibility = if (destination.id == R.id.home_fragment) View.VISIBLE else View.GONE
             }
         }
