@@ -24,7 +24,14 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            debuggable true
+        }
+        staging {
+            initWith debug
+            manifestPlaceholders = [hostname:"internal.example.com"]
         }
     }
     compileOptions {
@@ -40,7 +47,6 @@ android {
 }
 
 dependencies {
-
     implementation "androidx.room:room-ktx:$room_version"
     implementation "androidx.room:room-paging:$room_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$livedata_version"
