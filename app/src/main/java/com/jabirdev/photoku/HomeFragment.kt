@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -67,15 +68,13 @@ class HomeFragment : Fragment() {
             unsplashAdapter.submitData(lifecycle, it)
         }
 
-        mainActivity?.btnOrder?.setOnClickListener { v ->
-            showMenu(v, R.menu.menu_popup)
-        }
+        initMenu()
 
     }
 
-    private fun showMenu(v: View, menuPopup: Int) {
-        val popup = PopupMenu(requireContext(), v)
-        popup.menuInflater.inflate(menuPopup, popup.menu)
+    private fun initMenu() {
+        val popup = PopupMenu(requireContext(), mainActivity?.btnOrder)
+        popup.menuInflater.inflate(R.menu.menu_popup, popup.menu)
         popup.setOnMenuItemClickListener { item: MenuItem ->
             when(item.itemId){
                 R.id.filter_latest -> mainViewModel.loadPhotos(OrderBy.LATEST)
@@ -83,15 +82,18 @@ class HomeFragment : Fragment() {
                 R.id.filter_oldest -> mainViewModel.loadPhotos(OrderBy.OLDEST)
             }
             Toast.makeText(requireContext(), item.title, Toast.LENGTH_SHORT).show()
+            mainActivity?.btnOrder?.text = item.title
             return@setOnMenuItemClickListener true
         }
-        popup.show()
+        mainActivity?.btnOrder?.text = popup.menu[0].title
+        mainActivity?.btnOrder?.setOnClickListener { popup.show() }
     }
 
     override fun onStart() {
         super.onStart()
         binding?.rvImage?.adapter = unsplashAdapter
         mainViewModel.loadPhotos(OrderBy.LATEST)
+        initMenu()
     }
 
     override fun onStop() {

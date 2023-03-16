@@ -2,9 +2,17 @@ package com.jabirdev.photoku.util
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.content.Intent
+import android.os.Build.VERSION.SDK_INT
+import android.os.Parcelable
 import androidx.appcompat.app.AppCompatDelegate.*
 import com.jabirdev.photoku.app.AppConstants.PREF_APP
 import com.jabirdev.photoku.app.AppConstants.PREF_THEME
+
+inline fun <reified T : Parcelable> Intent.parcelable(key: String): T? = when {
+    SDK_INT >= 33 -> getParcelableExtra(key, T::class.java)
+    else -> @Suppress("DEPRECATION") getParcelableExtra(key) as? T
+}
 
 fun getMyTheme(context: Context) : Int {
     val sPref = context.getSharedPreferences(PREF_APP, MODE_PRIVATE)

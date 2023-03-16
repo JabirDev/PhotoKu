@@ -45,6 +45,9 @@ dependencies {
     implementation "androidx.room:room-paging:$room_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$livedata_version"
 
+    implementation "net.zetetic:android-database-sqlcipher:$sqlchiper_version"
+    implementation "androidx.sqlite:sqlite-ktx:$sqlite_version"
+
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
     kapt "androidx.room:room-compiler:$room_version"
     androidTestImplementation "androidx.room:room-testing:$room_version"

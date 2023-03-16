@@ -11,6 +11,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import javax.inject.Singleton
 
 @Module
@@ -18,10 +20,16 @@ import javax.inject.Singleton
 class DatabaseModule {
     @Singleton
     @Provides
-    fun provideDatabase(@ApplicationContext context: Context) : UnsplashDatabase = Room.databaseBuilder(
-        context,
-        UnsplashDatabase::class.java, "Unsplash.db"
-    ).fallbackToDestructiveMigration().build()
+    fun provideDatabase(@ApplicationContext context: Context) : UnsplashDatabase {
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("Unsplash".toCharArray())
+        val factory = SupportFactory(passphrase)
+        return Room.databaseBuilder(
+            context,
+            UnsplashDatabase::class.java, "Unsplash.db")
+            .fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
+            .build()
+    }
 
     @Provides
     fun provideUnsplashDao(database: UnsplashDatabase): UnsplashDao = database.unsplashDao()
