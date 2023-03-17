@@ -18,8 +18,8 @@ class DetailViewModel @Inject constructor(
     private val unsplashUseCase: UnsplashUseCase
 ) : ViewModel() {
 
-    private val _photo = MutableLiveData<Resource<UnsplashDetail>>()
-    val photo: LiveData<Resource<UnsplashDetail>> get() = _photo
+    private val _photo = MutableLiveData<Resource<UnsplashDetail>?>()
+    val photo: LiveData<Resource<UnsplashDetail>?> get() = _photo
 
     fun getDetailPhoto(id: String) = viewModelScope.launch {
         _photo.postValue(Resource.loading(null))

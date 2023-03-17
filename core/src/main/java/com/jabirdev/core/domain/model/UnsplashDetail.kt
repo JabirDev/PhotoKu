@@ -13,7 +13,7 @@ data class UnsplashDetail(
     val color: String,
     val blurHash: String,
     val description: String?,
-    val altDescription: String,
+    val altDescription: String?,
     val urls: ImageUrl,
     val links: UnsplashLink,
     val likes: Int,

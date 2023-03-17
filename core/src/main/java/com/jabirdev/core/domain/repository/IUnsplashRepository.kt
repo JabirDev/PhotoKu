@@ -1,8 +1,6 @@
 package com.jabirdev.core.domain.repository
 
 import androidx.paging.PagingData
-import com.jabirdev.core.data.source.remote.Resource
-import com.jabirdev.core.data.source.remote.response.UnsplashItem
 import com.jabirdev.core.domain.model.Unsplash
 import com.jabirdev.core.domain.model.UnsplashDetail
 import kotlinx.coroutines.flow.Flow

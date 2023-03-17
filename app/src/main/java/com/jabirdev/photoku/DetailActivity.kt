@@ -40,7 +40,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
         detailViewModel.photo.observe(this){
-            when(it.status){
+            when(it?.status){
                 Status.SUCCESS -> {
                     binding?.loading?.lottieLoading?.visibility = View.GONE
                     it.data?.tags?.forEach { t ->
@@ -85,6 +85,7 @@ class DetailActivity : AppCompatActivity() {
                 }
                 Status.LOADING -> binding?.loading?.lottieLoading?.visibility = View.VISIBLE
                 Status.ERROR -> Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                else -> binding?.loading?.lottieLoading?.visibility = View.VISIBLE
             }
         }
 
