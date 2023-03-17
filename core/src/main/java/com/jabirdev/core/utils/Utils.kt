@@ -1,13 +1,36 @@
 package com.jabirdev.core.utils
 
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import androidx.paging.LoadStateAdapter
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.ConcatAdapter
+import androidx.recyclerview.widget.RecyclerView
 import java.text.DecimalFormat
 import kotlin.math.floor
 import kotlin.math.log10
 import kotlin.math.pow
 
+fun <T : Any, V : RecyclerView.ViewHolder> PagingDataAdapter<T, V>.withLoadStateAdapters(
+    header: LoadStateAdapter<*>,
+    footer: LoadStateAdapter<*>
+): ConcatAdapter {
+    addLoadStateListener { loadStates ->
+        header.loadState = loadStates.refresh
+        footer.loadState = loadStates.append
+    }
+
+    return ConcatAdapter(header, this, footer)
+}
+
+fun isNetworkConnected(context: Context): Boolean {
+    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val networkCapabilities = connectivityManager.activeNetwork ?: return false
+    val actNw = connectivityManager.getNetworkCapabilities(networkCapabilities) ?: return false
+    return actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+}
 fun countViews(count:Long): String{
     val array = arrayOf(' ', 'k', 'M', 'B', 'T', 'P', 'E')
     val value = floor(log10(count.toDouble())).toInt()
@@ -19,22 +42,3 @@ fun countViews(count:Long): String{
     }
 }
 
-@FlowPreview
-fun <T, R> Flow<T>.switchMap(
-    mapper: suspend (value: T) -> Flow<R>
-): Flow<R> {
-    return flow {
-        coroutineScope {
-            var currentJob: Job? = null
-            collect { outerValue ->
-                val inner = mapper(outerValue)
-                currentJob?.cancelAndJoin()
-                currentJob = launch {
-                    inner.collect { value ->
-                        emit(value)
-                    }
-                }
-            }
-        }
-    }
-}

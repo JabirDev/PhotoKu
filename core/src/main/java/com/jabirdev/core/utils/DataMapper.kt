@@ -163,11 +163,9 @@ object DataMapper {
 
     fun Response<UnsplashItem>.toResponseDetail(): Response<UnsplashDetail> {
         val item = this.body()?.toDomainDetail()
-        return if (this.isSuccessful){
-            Response.success(item)
-        } else {
-            Response.error(this.code(), this.errorBody()!!)
-        }
+        return Response.success(
+            item, this.raw()
+        )
     }
 
 }

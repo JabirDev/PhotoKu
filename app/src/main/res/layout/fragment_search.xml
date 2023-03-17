@@ -19,9 +19,9 @@
         style="?attr/textInputFilledStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:boxStrokeWidth="0dp"
         app:hintAnimationEnabled="false"
         app:hintEnabled="false"
-        app:boxStrokeWidth="0dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -29,8 +29,18 @@
             android:layout_height="wrap_content"
             android:hint="@string/search_hint"
             android:imeOptions="actionDone"
-            android:maxLines="1"
-            android:inputType="textWebEditText"/>
+            android:inputType="textWebEditText"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <include
+        android:id="@+id/empty"
+        layout="@layout/lottie_empty"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

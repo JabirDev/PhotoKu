@@ -12,6 +12,7 @@ import com.google.android.material.chip.Chip
 import com.jabirdev.core.data.source.remote.Status
 import com.jabirdev.core.domain.model.Unsplash
 import com.jabirdev.core.utils.countViews
+import com.jabirdev.core.utils.isNetworkConnected
 import com.jabirdev.photoku.databinding.ActivityDetailBinding
 import com.jabirdev.photoku.util.parcelable
 import com.jabirdev.photoku.vm.DetailViewModel
@@ -41,6 +42,7 @@ class DetailActivity : AppCompatActivity() {
         detailViewModel.photo.observe(this){
             when(it.status){
                 Status.SUCCESS -> {
+                    binding?.loading?.lottieLoading?.visibility = View.GONE
                     it.data?.tags?.forEach { t ->
                         val chip = Chip(this)
                         chip.text = t.title
@@ -81,12 +83,18 @@ class DetailActivity : AppCompatActivity() {
                         visibility = View.VISIBLE
                     }
                 }
-                Status.LOADING -> Toast.makeText(this, "Loading data", Toast.LENGTH_SHORT).show()
+                Status.LOADING -> binding?.loading?.lottieLoading?.visibility = View.VISIBLE
                 Status.ERROR -> Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
             }
         }
 
-        photoItem?.id?.let { detailViewModel.getDetailPhoto(it) }
+        photoItem?.id?.let {
+            if (isNetworkConnected(this)){
+                detailViewModel.getDetailPhoto(it)
+            } else {
+                Toast.makeText(this, getString(R.string.no_connection), Toast.LENGTH_SHORT).show()
+            }
+        }
         binding?.btnFavorite?.isSelected = photoItem?.isFavorite == true
         binding?.btnBack?.setOnClickListener { finish() }
 

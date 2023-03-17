@@ -13,6 +13,7 @@
     <string name="menu_icon_description">Icon menu</string>
     <string name="search_hint">Search photos…</string>
     <string name="search_label">Search</string>
+    <string name="no_connection">No internet connection</string>
 
     <string-array name="menu_title">
         <item>Language</item>

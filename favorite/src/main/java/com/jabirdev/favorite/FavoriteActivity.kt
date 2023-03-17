@@ -6,15 +6,14 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.jabirdev.core.ui.LoadingStateAdapter
-import com.jabirdev.photoku.vm.MainViewModel
+import com.jabirdev.photoku.adapter.LoadingStateAdapter
 import com.jabirdev.core.ui.UnsplashAdapter
 import com.jabirdev.core.utils.ItemOffsetDecoration
+import com.jabirdev.core.utils.withLoadStateAdapters
 import com.jabirdev.favorite.databinding.ActivityFavoriteBinding
 import com.jabirdev.photoku.DetailActivity
 import com.jabirdev.photoku.R
 import com.jabirdev.photoku.di.FavoriteModuleDependencies
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.EntryPointAccessors
 import javax.inject.Inject
 
@@ -62,7 +61,10 @@ class FavoriteActivity : AppCompatActivity() {
         binding.rvFavorite.apply {
             setHasFixedSize(true)
             layoutManager = staggeredLayoutManager
-            adapter = unsplashAdapter.withLoadStateFooter(
+            adapter = unsplashAdapter.withLoadStateAdapters(
+                header = LoadingStateAdapter {
+                    unsplashAdapter.retry()
+                },
                 footer = LoadingStateAdapter {
                     unsplashAdapter.retry()
                 }

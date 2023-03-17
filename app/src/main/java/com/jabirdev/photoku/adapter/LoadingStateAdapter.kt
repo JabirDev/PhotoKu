@@ -1,4 +1,4 @@
-package com.jabirdev.core.ui
+package com.jabirdev.photoku.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.jabirdev.core.databinding.ItemLoadingBinding
+import com.jabirdev.photoku.databinding.ItemLoadingBinding
 
 class LoadingStateAdapter(
     private val retry: () -> Unit
@@ -22,7 +22,8 @@ class LoadingStateAdapter(
             if (loadState is LoadState.Error) {
                 binding.errorMsg.text = loadState.error.localizedMessage
             }
-            binding.progressBar.isVisible = loadState is LoadState.Loading
+            binding.loading.lottieLoading.isVisible = loadState is LoadState.Loading
+//            binding.progressBar.isVisible = loadState is LoadState.Loading
             binding.retryButton.isVisible = loadState is LoadState.Error
             binding.errorMsg.isVisible = loadState is LoadState.Error
         }

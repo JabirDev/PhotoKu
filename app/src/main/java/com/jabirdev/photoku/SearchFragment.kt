@@ -9,9 +9,10 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.jabirdev.core.ui.LoadingStateAdapter
+import com.jabirdev.photoku.adapter.LoadingStateAdapter
 import com.jabirdev.core.ui.UnsplashAdapter
 import com.jabirdev.core.utils.ItemOffsetDecoration
+import com.jabirdev.core.utils.withLoadStateAdapters
 import com.jabirdev.photoku.databinding.FragmentSearchBinding
 import com.jabirdev.photoku.vm.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,8 +48,11 @@ class SearchFragment : Fragment() {
         binding?.rvSearch?.apply {
             setHasFixedSize(true)
             layoutManager = staggeredLayoutManager
-            adapter = unsplashAdapter.withLoadStateFooter(
+            adapter = unsplashAdapter.withLoadStateAdapters(
                 footer = LoadingStateAdapter {
+                    unsplashAdapter.retry()
+                },
+                header = LoadingStateAdapter {
                     unsplashAdapter.retry()
                 }
             )
@@ -57,6 +61,7 @@ class SearchFragment : Fragment() {
 
         searchViewModel.searchResult.observe(viewLifecycleOwner){
             unsplashAdapter.submitData(lifecycle, it)
+            binding?.empty?.lottieEmpty?.visibility = if (unsplashAdapter.itemCount == 0) View.VISIBLE else View.GONE
         }
 
         binding?.inputQuery?.editText?.addTextChangedListener {

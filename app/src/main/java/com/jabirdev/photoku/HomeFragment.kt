@@ -12,9 +12,10 @@ import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.jabirdev.core.ui.LoadingStateAdapter
 import com.jabirdev.core.ui.UnsplashAdapter
 import com.jabirdev.core.utils.ItemOffsetDecoration
+import com.jabirdev.core.utils.withLoadStateAdapters
+import com.jabirdev.photoku.adapter.LoadingStateAdapter
 import com.jabirdev.photoku.databinding.FragmentHomeBinding
 import com.jabirdev.photoku.vm.MainViewModel
 import com.jabirdev.photoku.vm.OrderBy
@@ -56,7 +57,10 @@ class HomeFragment : Fragment() {
         binding?.rvImage?.apply {
             setHasFixedSize(true)
             layoutManager = staggeredLayoutManager
-            adapter = unsplashAdapter.withLoadStateFooter(
+            adapter = unsplashAdapter.withLoadStateAdapters(
+                header = LoadingStateAdapter {
+                    unsplashAdapter.retry()
+                },
                 footer = LoadingStateAdapter {
                     unsplashAdapter.retry()
                 }
