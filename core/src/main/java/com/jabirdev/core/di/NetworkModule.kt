@@ -17,8 +17,6 @@ import java.util.concurrent.TimeUnit
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
 
-    private val baseUrl = "https://api.unsplash.com/"
-
     @Provides
     fun provideLoggingInterceptor() : HttpLoggingInterceptor {
         return HttpLoggingInterceptor().setLevel(
@@ -29,10 +27,10 @@ class NetworkModule {
 
     @Provides
     fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
-        val hostname = baseUrl.replace("https://", "").replace("/", "")
+        val hostname = BuildConfig.BASE_URL.replace("https://", "").replace("/", "")
         val certification = CertificatePinner.Builder()
-            .add(hostname, "sha256/dUyxlTICtMn4wEys0D5M3xvwgNyHj0lK4lT7tdqD/O0=")
-            .add(hostname, "sha256/0OyeXCoPbY19oU2881iW7i1bAu8Ni+HMKGN08r/G5XI=")
+            .add(hostname, BuildConfig.CERTIFICATE_1)
+            .add(hostname, BuildConfig.CERTIFICATE_2)
             .build()
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
@@ -54,7 +52,7 @@ class NetworkModule {
     @Provides
     fun provideApiService(client: OkHttpClient) : ApiService {
         val retrofit = Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

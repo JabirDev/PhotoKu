@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="btn_retry">Muat ulang</string>
+    <string name="added_to_favorite">Ditambahkan ke Favorit</string>
+    <string name="removed_from_favorite">Dihapus dari Favorite</string>
 </resources>

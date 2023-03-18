@@ -17,6 +17,9 @@ android {
         targetSdk 33
 
         buildConfigField("String", "UNSPLASH_CLIENT_ID", '"AApTz6UbsPeJ3ZVcbs1cjI_VlvFVxxChY-0eWcEzHHo"')
+        buildConfigField("String", "BASE_URL", '"https://api.unsplash.com/"')
+        buildConfigField("String", "CERTIFICATE_1", '"sha256/dUyxlTICtMn4wEys0D5M3xvwgNyHj0lK4lT7tdqD/O0="')
+        buildConfigField("String", "CERTIFICATE_2", '"sha256/0OyeXCoPbY19oU2881iW7i1bAu8Ni+HMKGN08r/G5XI="')
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }

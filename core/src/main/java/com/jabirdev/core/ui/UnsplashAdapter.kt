@@ -1,16 +1,16 @@
 package com.jabirdev.core.ui
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.target.Target
+import com.google.android.material.snackbar.Snackbar
 import com.jabirdev.core.R
 import com.jabirdev.core.databinding.ItemImageBinding
 import com.jabirdev.core.domain.model.Unsplash
+import com.jabirdev.core.utils.loadImage
 
 class UnsplashAdapter : PagingDataAdapter<Unsplash, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
@@ -18,7 +18,8 @@ class UnsplashAdapter : PagingDataAdapter<Unsplash, RecyclerView.ViewHolder>(DIF
     var onFavoriteClick: ((Unsplash, Boolean) -> Unit)? = null
 
     inner class UnsplashHolder(private val binding: ItemImageBinding) : RecyclerView.ViewHolder(binding.root){
-        private val context = binding.root.context
+
+        private val context: Context = binding.root.context
 
         fun setData(data : Unsplash){
             binding.root.setOnClickListener {
@@ -26,18 +27,16 @@ class UnsplashAdapter : PagingDataAdapter<Unsplash, RecyclerView.ViewHolder>(DIF
             }
             binding.ibFavorite.setOnClickListener {
                 val isFavorite = !data.isFavorite
+                val msg = if (isFavorite) context.getString(R.string.added_to_favorite) else context.getString(R.string.removed_from_favorite)
                 onFavoriteClick?.invoke(data, isFavorite)
+                Snackbar.make(binding.root, msg, Snackbar.LENGTH_SHORT)
+                    .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE)
+                    .show()
+
             }
             binding.ibFavorite.isChecked = data.isFavorite
             binding.ivThumb.layout(0,0,0,0)
-            Glide.with(context)
-                .load(data.thumbImage)
-                .override(Target.SIZE_ORIGINAL)
-                .transform(RoundedCorners(8))
-                .placeholder(R.drawable.image_placeholder)
-                .error(R.drawable.image_placeholder)
-                .thumbnail(0.5f)
-                .into(binding.ivThumb)
+            binding.ivThumb.loadImage(data.thumbImage)
         }
 
     }
@@ -69,10 +68,5 @@ class UnsplashAdapter : PagingDataAdapter<Unsplash, RecyclerView.ViewHolder>(DIF
 
         }
     }
-
-//    interface ItemClickListener {
-//        fun onClick(photo: Unsplash)
-//        fun onFavorite(photo: Unsplash, isFavorite: Boolean)
-//    }
 
 }

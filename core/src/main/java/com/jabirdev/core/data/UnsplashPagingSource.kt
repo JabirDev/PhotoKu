@@ -22,14 +22,6 @@ class UnsplashPagingSource(
 
         return try {
             unsplashDatabase.withTransaction {
-//                val entities = unsplashDatabase.unsplashDao().getAllPhotos()
-//                entities.forEach {
-//                    val favorite = unsplashDatabase.unsplashFavoriteDao().getFavorite(it.id)
-//                    if (favorite != null && favorite.id == it.id){
-//                        it.isFavorite = true
-//                        unsplashDatabase.unsplashDao().updateFavoriteImage(it)
-//                    }
-//                }
                 val favoriteList = unsplashDatabase.unsplashFavoriteDao().getFavoriteList(params.loadSize, page * params.loadSize)
                 if (page != 0) delay(1000)
                 LoadResult.Page(
