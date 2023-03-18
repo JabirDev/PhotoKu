@@ -7,6 +7,7 @@ import com.jabirdev.core.domain.model.Unsplash
 import com.jabirdev.core.domain.usecase.UnsplashUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,11 +25,11 @@ class MainViewModel @Inject constructor(
         loadPhotos(OrderBy.LATEST)
     }
 
-    fun setFavorite(photo: Unsplash, isFavorite: Boolean) = viewModelScope.launch(Dispatchers.IO){
+    fun setFavorite(photo: Unsplash, isFavorite: Boolean): Job = viewModelScope.launch(Dispatchers.IO){
         unsplashUseCase.setFavorite(photo, isFavorite)
     }
 
-    fun loadPhotos(orderBy: String) = _orderBy.postValue(orderBy)
+    fun loadPhotos(orderBy: String): Unit = _orderBy.postValue(orderBy)
 
 
 }

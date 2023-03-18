@@ -7,6 +7,7 @@ import com.jabirdev.core.domain.model.Unsplash
 import com.jabirdev.core.domain.usecase.UnsplashUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,9 +22,9 @@ class SearchViewModel @Inject constructor(
         unsplashUseCase.searchPhotos(query).asLiveData(Dispatchers.IO).cachedIn(viewModelScope)
     }
 
-    fun search(query: String) = _query.postValue(query)
+    fun search(query: String): Unit = _query.postValue(query)
 
-    fun setFavorite(photo: Unsplash, isFavorite: Boolean) = viewModelScope.launch(Dispatchers.IO){
+    fun setFavorite(photo: Unsplash, isFavorite: Boolean): Job = viewModelScope.launch(Dispatchers.IO){
         unsplashUseCase.setFavorite(photo, isFavorite)
     }
 

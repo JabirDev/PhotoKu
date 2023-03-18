@@ -23,7 +23,6 @@ class LoadingStateAdapter(
                 binding.errorMsg.text = loadState.error.localizedMessage
             }
             binding.loading.lottieLoading.isVisible = loadState is LoadState.Loading
-//            binding.progressBar.isVisible = loadState is LoadState.Loading
             binding.retryButton.isVisible = loadState is LoadState.Error
             binding.errorMsg.isVisible = loadState is LoadState.Error
         }

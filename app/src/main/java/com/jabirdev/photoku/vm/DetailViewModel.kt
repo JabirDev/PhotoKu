@@ -10,6 +10,7 @@ import com.jabirdev.core.domain.model.UnsplashDetail
 import com.jabirdev.core.domain.usecase.UnsplashUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,7 +22,7 @@ class DetailViewModel @Inject constructor(
     private val _photo = MutableLiveData<Resource<UnsplashDetail>?>()
     val photo: LiveData<Resource<UnsplashDetail>?> get() = _photo
 
-    fun getDetailPhoto(id: String) = viewModelScope.launch {
+    fun getDetailPhoto(id: String): Job = viewModelScope.launch {
         _photo.postValue(Resource.loading(null))
         unsplashUseCase.getDetail(id).let {
             if (it.isSuccessful){
@@ -32,7 +33,7 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    fun setFavorite(photo: Unsplash, isFavorite: Boolean) = viewModelScope.launch(Dispatchers.IO){
+    fun setFavorite(photo: Unsplash, isFavorite: Boolean): Job = viewModelScope.launch(Dispatchers.IO){
         unsplashUseCase.setFavorite(photo, isFavorite)
     }
 

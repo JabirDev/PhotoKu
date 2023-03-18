@@ -25,7 +25,7 @@ object DataMapper {
             htmlLink = this.htmlLink
         )
 
-    fun UnsplashFavorite.toDomain(): Unsplash =
+    fun UnsplashFavorite.toDomain() =
         Unsplash(
             id = this.id,
             isFavorite = true,
@@ -41,7 +41,7 @@ object DataMapper {
             htmlLink = this.htmlLink
         )
 
-    fun UnsplashItem.toDomainDetail(): UnsplashDetail {
+    private fun UnsplashItem.toDomainDetail(): UnsplashDetail {
         val imgUrl = UnsplashDetail.ImageUrl(
             raw = this.urls.raw,
             full = this.urls.full,
@@ -130,7 +130,7 @@ object DataMapper {
         )
     }
 
-    fun Unsplash.toEntity(): UnsplashEntity =
+    fun Unsplash.toEntity() =
         UnsplashEntity(
             id = this.id,
             isFavorite = this.isFavorite,
@@ -146,7 +146,7 @@ object DataMapper {
             htmlLink = this.htmlLink
         )
 
-    fun Unsplash.toFavoriteEntity(): UnsplashFavorite =
+    fun Unsplash.toFavoriteEntity() =
         UnsplashFavorite(
             id = this.id,
             createdAt = this.createdAt,
