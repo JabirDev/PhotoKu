@@ -3,4 +3,5 @@
 Silahkan dijadikan bahan pelajaran ya!
 
 ## Demo
-https://github.com/JabirDev/PhotoKu/blob/master/device-2023-03-22-212201.mp4
+
+![screenshot](https://user-images.githubusercontent.com/20588976/226971785-7bb6d3d8-ff79-4357-9a80-b6aee0328ee2.gif)
