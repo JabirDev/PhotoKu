@@ -1,6 +1,6 @@
 # Projek kelas Dicoding oleh Taufan Fatahillah
 
-Silahkan dijadikan bahan pelajaran ya!
+Silahkan dijadikan bahan belajar!
 
 ## Demo
 
