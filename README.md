@@ -4,4 +4,6 @@ Silahkan dijadikan bahan pelajaran ya!
 
 ## Demo
 
-![screenshot](https://user-images.githubusercontent.com/20588976/226971785-7bb6d3d8-ff79-4357-9a80-b6aee0328ee2.gif)
+
+https://user-images.githubusercontent.com/58453447/226974335-e82e9381-e196-4c29-9908-3d39a8d3034a.mp4
+
