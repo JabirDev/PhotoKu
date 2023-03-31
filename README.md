@@ -1,6 +1,6 @@
 # Projek kelas Dicoding oleh Taufan Fatahillah
 
-Silahkan dijadikan bahan belajar!
+Aplikasi sederhana untuk menampilkan gambar menggunakan [Unsplash API](https://unsplash.com/developers). Projek ini sudah menerapkan Clean Architecture, Reactive Programming, Dependency Injection, Modularization dan Security.
 
 ## Demo
 
