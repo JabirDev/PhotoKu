@@ -1,6 +1,12 @@
 # Projek kelas Dicoding oleh Taufan Fatahillah
 
-Silahkan dijadikan bahan pelajaran ya!
+Aplikasi sederhana untuk menampilkan gambar menggunakan [Unsplash API](https://unsplash.com/developers). Projek ini sudah menerapkan Clean Architecture, Reactive Programming, Dependency Injection, Modularization dan Security.
 
 ## Demo
-https://github.com/JabirDev/PhotoKu/blob/master/device-2023-03-22-212201.mp4
+
+
+https://user-images.githubusercontent.com/58453447/226974335-e82e9381-e196-4c29-9908-3d39a8d3034a.mp4
+
+
+## Unsplash API
+Dokumentasi untuk Unsplash API bisa dilihat di [Unsplash Developer](https://unsplash.com/developers)
